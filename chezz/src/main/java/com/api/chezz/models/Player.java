@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Entity
@@ -40,6 +41,10 @@ public class Player {
         return Pattern.compile(regexPattern)
                 .matcher(this.email)
                 .matches();
+    }
+
+    public Boolean isLogginValid(String _email, String _password){
+        return Objects.equals(this.email, _email) && Objects.equals(this.password, _password);
     }
 
 }
