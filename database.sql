@@ -22,17 +22,28 @@ create table MatchGame (
 
 )
 
+
 create table SessionPlayer (
 
 	id bigint primary key auto_increment,
 	playerId bigint not null,
-	init_date Date not null,
-	final_date Date not null,
+	init_date DateTime not null,
+	final_date DateTime not null,
 	foreign key (playerId) references Player(id)
 
 )
 
+create table CodeValidation(
+
+	id bigint primary key auto_increment,
+	playerId bigint not null,
+	random_code varchar(6) not null,
+	foreign key (playerId) references Player(id)
+	
+)
+
 select * from Player
+select * from SessionPlayer
 
 -- Inserindo o primeiro jogador (Owner)
 INSERT INTO Player (id, email, password, username)

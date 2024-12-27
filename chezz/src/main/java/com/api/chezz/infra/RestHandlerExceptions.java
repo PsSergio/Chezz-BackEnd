@@ -22,6 +22,11 @@ public class RestHandlerExceptions {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto("EmailWrongSyntax", 400, e.getMessage()));
     }
 
+    @ExceptionHandler(EmailNotFoundException.class)
+    public ResponseEntity<ExceptionDto> EmailNotFoundSintaxHandler(EmailNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDto("EmailNotFound", 404, e.getMessage()));
+    }
+
     @ExceptionHandler(UsernameExistsException.class)
     public ResponseEntity<ExceptionDto> UsernameExistsHandler(UsernameExistsException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto("UsernameExists", 400, e.getMessage()));
