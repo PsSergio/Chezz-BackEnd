@@ -1,10 +1,7 @@
 package com.api.chezz.services;
 
 import com.api.chezz.dtos.PlayerLoginDto;
-import com.api.chezz.exceptions.EmailErrorSintaxException;
-import com.api.chezz.exceptions.EmailExistsException;
-import com.api.chezz.exceptions.LoginFailedException;
-import com.api.chezz.exceptions.UsernameExistsException;
+import com.api.chezz.exceptions.*;
 import com.api.chezz.models.Player;
 import com.api.chezz.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
@@ -15,10 +12,13 @@ public class PlayerService {
     private final PlayerRepository playerRepository;
     private final SessionService sessionService;
 
-    public PlayerService(PlayerRepository playerRepository, SessionService sessionService) {
+    private final CodeService codeService;
+
+    public PlayerService(PlayerRepository playerRepository, SessionService sessionService, CodeService codeService) {
         this.playerRepository = playerRepository;
         this.sessionService = sessionService;
 
+        this.codeService = codeService;
     }
 
     public void savePlayer(Player player){
@@ -44,5 +44,14 @@ public class PlayerService {
 
         sessionService.loginValidationSession(player);
 
+    }
+
+    public void refinePassword(String code, String email, String newPassword){
+        var player = playerRepository.findByEmail(email).orElseThrow(EmailNotFoundException::new);
+
+        if(!codeService.validateCode(email, code)) throw new WrongCodeException();
+
+        player.setPassword(newPassword);
+        playerRepository.save(player);
     }
 }

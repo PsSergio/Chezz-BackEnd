@@ -29,4 +29,10 @@ public class PlayerController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @PutMapping("refine/{code}")
+    public ResponseEntity<Void> refinePassword(@PathVariable(value = "code") String code, @RequestBody PlayerLoginDto model){
+        playerService.refinePassword(code, model.email(), model.password());
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 }

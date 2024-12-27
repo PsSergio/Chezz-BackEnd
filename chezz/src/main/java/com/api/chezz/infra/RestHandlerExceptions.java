@@ -46,4 +46,9 @@ public class RestHandlerExceptions {
     public ResponseEntity<ExceptionDto> UserAlreadyLoggedHandler(UserAlreadyLoggedException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto("UserAlreadyLogged", 400, e.getMessage()));
     }
+
+    @ExceptionHandler(WrongCodeException.class)
+    public ResponseEntity<ExceptionDto> WrongCodeHandler(WrongCodeException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto("WrongCode", 400, e.getMessage()));
+    }
 }
