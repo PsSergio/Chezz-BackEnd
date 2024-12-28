@@ -26,11 +26,12 @@ public class PlayerService {
         var doesEmailExists = playerRepository.findByEmail(player.getEmail()).isPresent();
         if(doesEmailExists) throw new EmailExistsException();
 
-        System.out.println(player.isEmailSintaxeValid());
         if(!player.isEmailSintaxeValid()) throw new EmailErrorSintaxException();
 
         var doesUsernameExists = playerRepository.findByUsername(player.getUsername()).isPresent();
         if(doesUsernameExists) throw new UsernameExistsException();
+
+        player.setRating(600); // default rating
 
         var playerInDB = playerRepository.save(player);
         sessionService.createSession(playerInDB);

@@ -35,6 +35,9 @@ public class Player {
     @OneToMany(mappedBy = "guest")
     private List<Match> guestMatches;
 
+    @Column(name = "rating")
+    private Integer rating;
+
     public Boolean isEmailSintaxeValid(){
         var regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
