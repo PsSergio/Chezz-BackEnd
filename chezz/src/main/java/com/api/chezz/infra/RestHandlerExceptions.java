@@ -67,4 +67,9 @@ public class RestHandlerExceptions {
     public ResponseEntity<ExceptionDto> UserAlreadyInMatchHandler(UserAlreadyInMatchException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto("UserAlreadyInMatch", 400, e.getMessage()));
     }
+
+    @ExceptionHandler(MatchNotFoundException.class)
+    public ResponseEntity<ExceptionDto> MatchNotFoundHandler(MatchNotFoundException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto("MatchNotFound", 400, e.getMessage()));
+    }
 }

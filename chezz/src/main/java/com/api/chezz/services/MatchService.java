@@ -2,6 +2,7 @@ package com.api.chezz.services;
 
 import com.api.chezz.dtos.FindingMatchDto;
 import com.api.chezz.dtos.MatchFoundDto;
+import com.api.chezz.exceptions.MatchNotFoundException;
 import com.api.chezz.exceptions.UserAlreadyInMatchException;
 import com.api.chezz.models.Match;
 import com.api.chezz.models.Player;
@@ -21,6 +22,11 @@ public class MatchService {
     }
 
     public void createMatch(Player player){
+
+        if( matchRepository.findByGuest(player).isPresent() ) throw new UserAlreadyInMatchException();
+
+        if( matchRepository.findByOwner(player).isPresent() ) throw new UserAlreadyInMatchException();
+
         var match = new Match();
         match.setOwner(player);
 
@@ -50,6 +56,6 @@ public class MatchService {
             }
         }
 
-        return null;
+        throw new MatchNotFoundException();
     }
 }
