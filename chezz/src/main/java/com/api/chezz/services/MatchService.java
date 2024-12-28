@@ -2,6 +2,7 @@ package com.api.chezz.services;
 
 import com.api.chezz.dtos.FindingMatchDto;
 import com.api.chezz.dtos.MatchFoundDto;
+import com.api.chezz.exceptions.UserAlreadyInMatchException;
 import com.api.chezz.models.Match;
 import com.api.chezz.models.Player;
 import com.api.chezz.repositories.MatchRepository;
@@ -26,20 +27,25 @@ public class MatchService {
         matchRepository.save(match);
     }
 
-    public void joiningSelectedMatch(Player guest, Match match){
+    public MatchFoundDto joiningSelectedMatch(Player guest, Match match){
 
         match.setGuest(guest);
         matchRepository.save(match);
 
+        return new MatchFoundDto(match.getId(), match.getOwner().getUsername(), match.getOwner().getRating(), match.getGuest().getUsername(), match.getGuest().getRating());
     }
 
     public MatchFoundDto findMatch(Player guest){
+
+        if( matchRepository.findByGuest(guest).isPresent() ) throw new UserAlreadyInMatchException();
+
+        if( matchRepository.findByOwner(guest).isPresent() ) throw new UserAlreadyInMatchException();
 
         for(int i = 20; i <= 100; i+=20){
             var matchs = matchRepository.findingMatchByRating(guest.getRating()-i, guest.getRating()+i);
             if(!matchs.isEmpty()) {
                 var match = matchs.get(0);
-                return new MatchFoundDto(match.id(), match.username(), match.rating(), guest.getUsername(), guest.getRating());
+                return joiningSelectedMatch(guest, match);
 
             }
         }
