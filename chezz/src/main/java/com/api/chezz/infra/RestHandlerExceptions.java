@@ -72,4 +72,11 @@ public class RestHandlerExceptions {
     public ResponseEntity<ExceptionDto> MatchNotFoundHandler(MatchNotFoundException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto("MatchNotFound", 400, e.getMessage()));
     }
+
+    // Play Exception
+
+    @ExceptionHandler(InvalidPlayException.class)
+    public ResponseEntity<ExceptionDto> InvalidPlayHandler(InvalidPlayException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto("InvalidPlay", 400, e.getMessage()));
+    }
 }
