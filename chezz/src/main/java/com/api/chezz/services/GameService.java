@@ -16,11 +16,7 @@ import java.util.Objects;
 @Service
 public class GameService {
 
-//    public PlayOutput newPlay(PlayInput playInput){
-//
-//    }
-
-    public boolean thereIsSomePieceInHouse(List<PlayOutput> allPlays, PlayInput playInput){
+    public boolean thereIsSomePieceInHouse(List<PlayOutput> allPlays, PlayInput playInput){ // tests failed
 
         boolean results = false;
         var targetHouse = playInput.actPosition();
@@ -55,7 +51,7 @@ public class GameService {
         return results;
     }
 
-    public void validatePawnPlay(PlayInput playInput){
+    public void validatePawnPlay(PlayInput playInput){ // needs to test
         if(playInput.piece() != PieceTypeEnum.Pawn) return;
 
         if(playInput.sidePlayer() == SidePlayerEnum.White){
@@ -79,7 +75,7 @@ public class GameService {
 
 
     }
-    public void validateKnightPlay (PlayInput playInput){
+    public void validateKnightPlay (PlayInput playInput){ // test approved
 
         if(playInput.piece() != PieceTypeEnum.Knight) return;
 
@@ -109,11 +105,9 @@ public class GameService {
 
     }
 
-    public void validateBishopPlay(PlayInput playInput){
+    public void validateBishopPlay(PlayInput playInput){ // test approved
 
         if(playInput.piece() != PieceTypeEnum.Bishop) return;
-
-        // validar direçao do movimento <- -> cima ou baixo
 
         var letters = Arrays.asList("a", "b", "c", "d", "e", "f","g", "h");
 
@@ -124,6 +118,19 @@ public class GameService {
         System.out.println(y);
 
         if(Math.abs(x) != Math.abs(y)) throw new InvalidPlayException();
+    }
+
+    public void validateRookPlay(PlayInput playInput){ // test approved
+        if(playInput.piece() != PieceTypeEnum.Rook) return;
+
+        var letters = Arrays.asList("a", "b", "c", "d", "e", "f","g", "h");
+
+        var x = letters.indexOf(playInput.lastPosition().letterHouse()) - letters.indexOf(playInput.actPosition().letterHouse());
+        var y = playInput.lastPosition().numberHouse() - playInput.actPosition().numberHouse();
+
+        if( x == 0 && y != 0 || x != 0 && y == 0) return;
+
+        throw new InvalidPlayException();
     }
 
 

@@ -117,4 +117,18 @@ public class GameServiceTest {
 
     }
 
+    @Test
+    void validateRookMove(){
+
+        var service = new GameService();
+
+        var targetPosition = new HouseDetailsDto("e", 4);
+        var lastPosition = new HouseDetailsDto("a", 4);
+
+        var play = new PlayInput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Rook, targetPosition, lastPosition);
+
+        service.validateRookPlay(play);
+
+    }
+
 }
