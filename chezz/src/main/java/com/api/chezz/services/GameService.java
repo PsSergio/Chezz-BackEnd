@@ -142,5 +142,26 @@ public class GameService {
         if(x > 1 || y > 1 || x < -1 || y < -1) throw new InvalidPlayException();
     }
 
+    public void validateQueenPlay(PlayInput playInput){ // test approved
+
+        if(playInput.piece() != PieceTypeEnum.Queen) return;
+
+        var letters = Arrays.asList("a", "b", "c", "d", "e", "f","g", "h");
+
+        var x = letters.indexOf(playInput.lastPosition().letterHouse()) - letters.indexOf(playInput.actPosition().letterHouse());
+        var y = playInput.lastPosition().numberHouse() - playInput.actPosition().numberHouse();
+
+        System.out.println(x);
+        System.out.println(y);
+
+        if( ( x == 0 && y != 0 || x != 0 && y == 0 )
+                || (x >= -1 && x <= 1 && y >= -1 && y <= 1)
+                || ( Math.abs(x) == Math.abs(y) ) ) return;
+
+        throw new InvalidPlayException();
+
+
+    }
+
 
 }

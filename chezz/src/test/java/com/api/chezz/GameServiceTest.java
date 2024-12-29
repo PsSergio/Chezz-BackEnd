@@ -145,4 +145,18 @@ public class GameServiceTest {
 
     }
 
+    @Test
+    void validateQueenMove(){
+
+        var service = new GameService();
+
+        var targetPosition = new HouseDetailsDto("e", 4);
+        var lastPosition = new HouseDetailsDto("e", 3);
+
+        var play = new PlayInput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Queen, targetPosition, lastPosition);
+
+        service.validateQueenPlay(play);
+
+    }
+
 }
