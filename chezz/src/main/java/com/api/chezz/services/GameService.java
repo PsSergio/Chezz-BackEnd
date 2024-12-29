@@ -91,19 +91,19 @@ public class GameService {
         var lastNumber = playInput.lastPosition().numberHouse();
         var actNumber = playInput.actPosition().numberHouse();
 
-        if(indexLastPlayLetter-2 < 0 || indexLastPlayLetter+2 > 7
-        || actNumber-2 < 0  || actNumber+2 > 7 ) throw new InvalidPlayException();
 
-        
+        var possibleMatches = Arrays.asList(
+                new int[]{2, -1}, new int[]{2, 1}, new int[]{-2, -1}, new int[]{-2, 1},
+                new int[]{1, 2}, new int[]{1, -2}, new int[]{-1, 2}, new int[]{-1, -2});
 
-//        if(indexActPlayLetter-2 == indexLastPlayLetter && actNumber-1 == lastNumber
-//        || indexActPlayLetter-2 == indexLastPlayLetter && actNumber+1 == lastNumber
-//        || indexActPlayLetter+2 == indexLastPlayLetter && actNumber-1 == lastNumber
-//        || indexActPlayLetter+2 == indexLastPlayLetter && actNumber+1 == lastNumber
-//        || actNumber-2 == lastNumber && indexActPlayLetter-1 == indexLastPlayLetter
-//        || actNumber-2 == lastNumber && indexActPlayLetter+1 == indexLastPlayLetter
-//        || actNumber+2 == lastNumber && indexActPlayLetter-1 == indexLastPlayLetter
-//        || actNumber+2 == lastNumber && indexActPlayLetter+1 == indexLastPlayLetter) return;
+        var x = indexLastPlayLetter - indexActPlayLetter;
+        var y = lastNumber - actNumber;
+
+        for (var possibleMatch : possibleMatches){
+
+            if(Arrays.equals(possibleMatch, new int[]{x, y})) return;
+
+        }
 
         throw new InvalidPlayException();
 

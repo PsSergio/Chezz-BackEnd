@@ -16,7 +16,7 @@ import java.util.List;
 public class GameServiceTest {
 
     @Test
-    void testMethod(){
+    void validateThereIsSomePieceInTargetHouse(){
         List<PlayOutput> chessMoves = new ArrayList<>();
 
         // 1. e4 d5
@@ -88,6 +88,19 @@ public class GameServiceTest {
         boolean results = service.thereIsSomePieceInHouse(chessMoves, play);
 
         System.out.println("final: "+results);
+    }
+
+    @Test
+    void validateKgnihtMove(){
+
+        var service = new GameService();
+
+        var targetPosition = new HouseDetailsDto("e", 4);
+        var lastPosition = new HouseDetailsDto("f", 2);
+
+        var play = new PlayInput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Knight, targetPosition, lastPosition);
+
+        service.validateKnightPlay(play);
     }
 
 }
