@@ -103,4 +103,18 @@ public class GameServiceTest {
         service.validateKnightPlay(play);
     }
 
+    @Test
+    void validateBishopMove(){
+
+        var service = new GameService();
+
+        var targetPosition = new HouseDetailsDto("d", 5);
+        var lastPosition = new HouseDetailsDto("a", 2);
+
+        var play = new PlayInput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Bishop, targetPosition, lastPosition);
+
+        service.validateBishopPlay(play);
+
+    }
+
 }

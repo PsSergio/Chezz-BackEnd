@@ -120,7 +120,10 @@ public class GameService {
         var x = letters.indexOf(playInput.lastPosition().letterHouse()) - letters.indexOf(playInput.actPosition().letterHouse());
         var y = playInput.lastPosition().numberHouse() - playInput.actPosition().numberHouse();
 
-        if(x != y) throw new InvalidPlayException();
+        System.out.println(x);
+        System.out.println(y);
+
+        if(Math.abs(x) != Math.abs(y)) throw new InvalidPlayException();
     }
 
 
