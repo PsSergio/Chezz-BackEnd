@@ -1,7 +1,9 @@
 package com.api.chezz.services;
 
 import com.api.chezz.dtos.PlayInput;
+import com.api.chezz.enums.MoveTypeEnum;
 import com.api.chezz.models.PlayOutput;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,30 +17,28 @@ public class HouseValidationService {
         boolean results = false;
         var targetHouse = playInput.actPosition();
 
-        var tempPlay = new PlayOutput(null ,null, null, null);
-        for (var play : allPlays) {
+        if(targetHouse.numberHouse() <= 2 || targetHouse.numberHouse() >= 7) results = true;
 
+        var tempPlay = new PlayOutput(null ,null, null);
+        for (var play : allPlays) {
 
             if(Objects.equals(targetHouse.letterHouse(), play.getHouse().letterHouse()) &&
                     Objects.equals(targetHouse.numberHouse(), play.getHouse().numberHouse())) {
                 results = true;
-                tempPlay.setColor(play.getColor());
-                tempPlay.setHouse(play.getHouse());
-                tempPlay.setPiece(play.getPiece());
-                tempPlay.setMove(play.getMove());
-                System.out.println(play.getPiece()+" "+play.getHouse().letterHouse()+play.getHouse().numberHouse()+" "+results);
+
+                BeanUtils.copyProperties(play, tempPlay);
 
                 continue;
             }
-            System.out.println(play.getPiece()+" "+play.getHouse().letterHouse()+play.getHouse().numberHouse()+" "+results);
 
-            if(tempPlay.getPiece() == play.getPiece() // to validate that house is clean after a move
-                    && tempPlay.getColor() == play.getColor()
-                    && !Objects.equals(tempPlay.getHouse().numberHouse(), play.getHouse().numberHouse())){
-                results = false;
+            if(tempPlay.getPiece() == null) {
+                continue;
             }
 
-
+            if(Objects.equals(tempPlay.getPiece().id(), play.getPiece().id())
+            && tempPlay.getPiece().pieceType() == play.getPiece().pieceType()
+            && tempPlay.getPiece().color() == play.getPiece().color()
+            ) results = false;
 
         }
 

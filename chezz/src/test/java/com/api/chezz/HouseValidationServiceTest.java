@@ -1,6 +1,7 @@
 package com.api.chezz;
 
 import com.api.chezz.dtos.HouseDetailsDto;
+import com.api.chezz.dtos.PieceDetailsDto;
 import com.api.chezz.dtos.PlayInput;
 import com.api.chezz.enums.MoveTypeEnum;
 import com.api.chezz.enums.PieceTypeEnum;
@@ -19,70 +20,53 @@ public class HouseValidationServiceTest {
     void validateThereIsSomePieceInTargetHouse(){
         List<PlayOutput> chessMoves = new ArrayList<>();
 
-        // 1. e4 d5
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Pawn, new HouseDetailsDto("e", 4)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Pawn, new HouseDetailsDto("d", 5)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Pawn, 4), new HouseDetailsDto("d", 4)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Pawn, 4), new HouseDetailsDto("d", 5)));
 
-        // 2. exd5 Qxd5
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Capture, PieceTypeEnum.Pawn, new HouseDetailsDto("d", 5)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Capture, PieceTypeEnum.Queen, new HouseDetailsDto("d", 5)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Pawn, 3), new HouseDetailsDto("c", 4)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Pawn, 5), new HouseDetailsDto("e", 6)));
 
-        // 3. Nc3 Qa5
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Knight, new HouseDetailsDto("c", 3)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Queen, new HouseDetailsDto("a", 5)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Knight, 2), new HouseDetailsDto("f", 3)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Knight, 2), new HouseDetailsDto("f", 6)));
 
-        // 4. d3 e5
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Pawn, new HouseDetailsDto("d", 3)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Pawn, new HouseDetailsDto("e", 5)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Bishop, 1), new HouseDetailsDto("g", 5)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Bishop, 2), new HouseDetailsDto("e", 7)));
 
-        // 5. Bd2 Qb6
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Bishop, new HouseDetailsDto("d", 2)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Queen, new HouseDetailsDto("b", 6)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Knight, 1), new HouseDetailsDto("c", 3)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Castle, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.King, 1), new HouseDetailsDto("g", 8)));
 
-        // 6. Nf3 Nd7
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Knight, new HouseDetailsDto("f", 3)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Knight, new HouseDetailsDto("d", 7)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Pawn, 5), new HouseDetailsDto("e", 3)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Knight, 1), new HouseDetailsDto("d", 7)));
 
-        // 7. Be2 Qxb2
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Bishop, new HouseDetailsDto("e", 2)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Capture, PieceTypeEnum.Queen, new HouseDetailsDto("b", 2)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Capture, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Pawn, 3), new HouseDetailsDto("d", 5)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Capture, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Pawn, 5), new HouseDetailsDto("d", 5)));
 
-        // 8. O-O Qb6
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Castle, PieceTypeEnum.King, new HouseDetailsDto("g", 1)));  // Pequeno roque
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Queen, new HouseDetailsDto("b", 6)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Bishop, 2), new HouseDetailsDto("b", 5)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Pawn, 3), new HouseDetailsDto("c", 6)));
 
-        // 9. d4 exd4
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Pawn, new HouseDetailsDto("d", 4)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Capture, PieceTypeEnum.Pawn, new HouseDetailsDto("d", 4)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Bishop, 2), new HouseDetailsDto("d", 3)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Pawn, 2), new HouseDetailsDto("b", 6)));
 
-        // 10. Nd5 Qd6
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Knight, new HouseDetailsDto("d", 5)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Queen, new HouseDetailsDto("d", 6)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Queen, 1), new HouseDetailsDto("c", 2)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Bishop, 1), new HouseDetailsDto("b", 7)));
 
-        // 11. Bc4 c6
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Bishop, new HouseDetailsDto("c", 4)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Pawn, new HouseDetailsDto("c", 6)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Castle, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.King, 1), new HouseDetailsDto("g", 1)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Rook, 2), new HouseDetailsDto("e", 8)));
 
-        // 12. Qe1+ Be7
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Queen, new HouseDetailsDto("e", 1)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Bishop, new HouseDetailsDto("e", 7)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Capture, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Bishop, 1), new HouseDetailsDto("f", 6)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Capture, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Knight, 1), new HouseDetailsDto("f", 6)));
 
-        // 13. Bb4 Qe6
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Bishop, new HouseDetailsDto("b", 4)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Queen, new HouseDetailsDto("e", 6)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Knight, 2), new HouseDetailsDto("e", 5)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Move, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Pawn, 3), new HouseDetailsDto("c", 5)));
 
-        // 14. Nc7+ Kf8
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Capture, PieceTypeEnum.Knight, new HouseDetailsDto("c", 7)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.King, new HouseDetailsDto("f", 8)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Capture, new PieceDetailsDto(SidePlayerEnum.White, PieceTypeEnum.Pawn, 4), new HouseDetailsDto("c", 5)));
+        chessMoves.add(new PlayOutput(MoveTypeEnum.Capture, new PieceDetailsDto(SidePlayerEnum.Black, PieceTypeEnum.Bishop, 2), new HouseDetailsDto("c", 5)));
 
-        // 15. Nxe6+ fxe6
-        chessMoves.add(new PlayOutput(SidePlayerEnum.White, MoveTypeEnum.Capture, PieceTypeEnum.Knight, new HouseDetailsDto("e", 6)));
-        chessMoves.add(new PlayOutput(SidePlayerEnum.Black, MoveTypeEnum.Capture, PieceTypeEnum.Pawn, new HouseDetailsDto("e", 6)));
 
         var service = new HouseValidationService();
 
-        var targetPosition = new HouseDetailsDto("d", 4);
-        var lastPosition = new HouseDetailsDto("e", 2);
+        var lastPosition = new HouseDetailsDto("d", 3);
+        var targetPosition = new HouseDetailsDto("e", 8);
 
         var play = new PlayInput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.Pawn, targetPosition, lastPosition);
         boolean results = service.thereIsSomePieceInHouse(chessMoves, play);
