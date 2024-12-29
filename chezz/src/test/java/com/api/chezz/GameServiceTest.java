@@ -159,4 +159,17 @@ public class GameServiceTest {
 
     }
 
+    @Test
+    void validatePawnMove(){
+
+        var service = new GameService();
+
+        var lastPosition = new HouseDetailsDto("e", 7);
+        var targetPosition = new HouseDetailsDto("e", 5);
+
+        var play = new PlayInput(SidePlayerEnum.Black, MoveTypeEnum.Move, PieceTypeEnum.Pawn, targetPosition, lastPosition);
+
+        service.validatePawnPlay(play);
+
+    }
 }

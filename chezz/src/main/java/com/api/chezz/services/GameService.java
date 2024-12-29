@@ -51,28 +51,46 @@ public class GameService {
         return results;
     }
 
-    public void validatePawnPlay(PlayInput playInput){ // needs to test
+    public void validatePawnPlay(PlayInput playInput){
         if(playInput.piece() != PieceTypeEnum.Pawn) return;
+
+        var letters = Arrays.asList("a", "b", "c", "d", "e", "f","g", "h");
+
+        var indexLastPlayLetter = letters.indexOf(playInput.lastPosition().letterHouse());
+        var indexActPlayLetter = letters.indexOf(playInput.actPosition().letterHouse());
+
+        var lastNumber = playInput.lastPosition().numberHouse();
+        var actNumber = playInput.actPosition().numberHouse();
+
+        var x = letters.indexOf(playInput.lastPosition().letterHouse()) - letters.indexOf(playInput.actPosition().letterHouse());
+        var y = playInput.lastPosition().numberHouse() - playInput.actPosition().numberHouse();
+
+        System.out.println(x);
+        System.out.println(y);
+
+        if(playInput.move() == MoveTypeEnum.Capture && (Math.abs(x) != Math.abs(y) || Math.abs(x) != 1)) throw new InvalidPlayException();
+
+        if(playInput.move() == MoveTypeEnum.Move && indexLastPlayLetter != indexActPlayLetter) throw new InvalidPlayException();
 
         if(playInput.sidePlayer() == SidePlayerEnum.White){
 
-            if(playInput.lastPosition().numberHouse() == 2
-                    && playInput.actPosition().numberHouse() > 4) throw new InvalidPlayException();
+            if(lastNumber != 2 && actNumber > lastNumber+1
+            || lastNumber == 2 && actNumber > lastNumber+2) throw new InvalidPlayException();
 
-            if(playInput.actPosition().numberHouse() != playInput.lastPosition().numberHouse()+1 && playInput.move() == MoveTypeEnum.Move)
-                throw new InvalidPlayException();
+            if(lastNumber < actNumber) return;
+
         }
 
         if(playInput.sidePlayer() == SidePlayerEnum.Black){
 
-            if(playInput.lastPosition().numberHouse() == 7
-                    && playInput.actPosition().numberHouse() < 5) throw new InvalidPlayException();
+            if(lastNumber != 7 && actNumber < lastNumber-1
+            || lastNumber == 7 && actNumber < lastNumber-2) throw new InvalidPlayException();
 
-            if(playInput.actPosition().numberHouse() != playInput.lastPosition().numberHouse()-1 && playInput.move() == MoveTypeEnum.Move)
-                throw new InvalidPlayException();
+            if(lastNumber > actNumber) return;
 
         }
 
+        throw new InvalidPlayException();
 
     }
     public void validateKnightPlay (PlayInput playInput){ // test approved
@@ -130,7 +148,7 @@ public class GameService {
         throw new InvalidPlayException();
     }
 
-    public void validateKingPlay(PlayInput playInput){ // test approved
+    public void validateKingPlay(PlayInput playInput){ // needs to implement castle
 
         if(playInput.piece() != PieceTypeEnum.King) return;
 
