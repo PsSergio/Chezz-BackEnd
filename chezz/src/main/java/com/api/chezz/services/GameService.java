@@ -114,9 +114,6 @@ public class GameService {
         var x = letters.indexOf(playInput.lastPosition().letterHouse()) - letters.indexOf(playInput.actPosition().letterHouse());
         var y = playInput.lastPosition().numberHouse() - playInput.actPosition().numberHouse();
 
-        System.out.println(x);
-        System.out.println(y);
-
         if(Math.abs(x) != Math.abs(y)) throw new InvalidPlayException();
     }
 
@@ -131,6 +128,18 @@ public class GameService {
         if( x == 0 && y != 0 || x != 0 && y == 0) return;
 
         throw new InvalidPlayException();
+    }
+
+    public void validateKingPlay(PlayInput playInput){ // test approved
+
+        if(playInput.piece() != PieceTypeEnum.King) return;
+
+        var letters = Arrays.asList("a", "b", "c", "d", "e", "f","g", "h");
+
+        var x = letters.indexOf(playInput.lastPosition().letterHouse()) - letters.indexOf(playInput.actPosition().letterHouse());
+        var y = playInput.lastPosition().numberHouse() - playInput.actPosition().numberHouse();
+
+        if(x > 1 || y > 1 || x < -1 || y < -1) throw new InvalidPlayException();
     }
 
 

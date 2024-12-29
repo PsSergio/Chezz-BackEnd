@@ -131,4 +131,18 @@ public class GameServiceTest {
 
     }
 
+    @Test
+    void validateKingMove(){
+
+        var service = new GameService();
+
+        var targetPosition = new HouseDetailsDto("e", 4);
+        var lastPosition = new HouseDetailsDto("f", 3);
+
+        var play = new PlayInput(SidePlayerEnum.White, MoveTypeEnum.Move, PieceTypeEnum.King, targetPosition, lastPosition);
+
+        service.validateKingPlay(play);
+
+    }
+
 }
