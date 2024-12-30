@@ -1,6 +1,7 @@
 create database chezz
 use chezz
 
+
 drop database chezz
 
 create table Player (
@@ -8,9 +9,13 @@ create table Player (
 	id bigint primary key AUTO_INCREMENT,
 	email varchar(50) not null,
 	password varchar(50) not null,
-	username varchar(30) not null
+	username varchar(30) not null,
 
 )
+
+alter table Player modify column email varchar(320) not null unique
+
+alter table Player add column rating int not null
 
 create table MatchGame (
 
