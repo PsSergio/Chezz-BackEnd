@@ -7,10 +7,11 @@ drop database chezz
 create table Player (
 
 	id bigint primary key AUTO_INCREMENT,
-	email varchar(50) not null,
+	email varchar(50) not null unique,
 	password varchar(50) not null,
 	username varchar(30) not null,
-
+	rating int not null
+	
 )
 
 alter table Player modify column email varchar(320) not null unique
