@@ -1,6 +1,7 @@
 package com.api.chezz.services;
 
 import com.api.chezz.exceptions.SessionExpiredException;
+import com.api.chezz.exceptions.SessionNotFoundException;
 import com.api.chezz.exceptions.UserAlreadyLoggedException;
 import com.api.chezz.models.Player;
 import com.api.chezz.models.Session;
@@ -18,13 +19,13 @@ public class SessionService {
         this.sessionRepository = sessionRepository;
     }
 
-    public void createSession(Player player){
+    public Long createSession(Player player){
 
         var session = new Session();
         session.setPlayer(player);
         session.setAllDatesTime();
 
-        sessionRepository.save(session);
+        return sessionRepository.save(session).getId();
     }
 
     public void updateSession(Session session){
@@ -34,20 +35,19 @@ public class SessionService {
 
     }
 
-    public void loginValidationSession(Player _player){
+    public Long loginValidationSession(Player _player){
 
         var session = sessionRepository.findByPlayer(_player);
 
         if(session.isEmpty()) {
-            createSession(_player);
-            return;
+            return createSession(_player);
         }
 
         if(session.get().isSessionValid()) throw new UserAlreadyLoggedException();
 
         sessionRepository.delete(session.get());
 
-        createSession(_player);
+        return createSession(_player);
 
     }
 
@@ -61,5 +61,11 @@ public class SessionService {
         sessionRepository.delete(session);
         throw new SessionExpiredException();
 
+    }
+
+    public void logout(Long sessionId){
+        var session = sessionRepository.findById(sessionId).orElseThrow(SessionNotFoundException::new);
+
+        sessionRepository.delete(session);
     }
 }

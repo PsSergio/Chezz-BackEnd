@@ -42,6 +42,11 @@ public class RestHandlerExceptions {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ExceptionDto("SessionExpired", 401, e.getMessage()));
     }
 
+    @ExceptionHandler(SessionNotFoundException.class)
+    public ResponseEntity<ExceptionDto> SessionNotFoundHandler(SessionNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDto("SessionNotFound", 404, e.getMessage()));
+    }
+
     // Login Exceptions
 
     @ExceptionHandler(LoginFailedException.class)
