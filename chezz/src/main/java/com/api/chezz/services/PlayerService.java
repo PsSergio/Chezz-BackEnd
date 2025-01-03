@@ -58,7 +58,7 @@ public class PlayerService {
     public void refinePassword(String code, String email, String newPassword){
         var player = playerRepository.findByEmail(email).orElseThrow(EmailNotFoundException::new);
 
-        if(!codeService.validateCode(email, code)) throw new WrongCodeException();
+        codeService.validateCode(email, code);
 
         player.setPassword(newPassword);
         playerRepository.save(player);

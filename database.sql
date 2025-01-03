@@ -50,6 +50,7 @@ create table CodeValidation(
 
 select * from Player
 select * from SessionPlayer
+select * from CodeValidation 
 
 -- Inserindo o primeiro jogador (Owner)
 INSERT INTO Player (id, email, password, username)

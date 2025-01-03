@@ -1,6 +1,7 @@
 package com.api.chezz.services;
 
 import com.api.chezz.exceptions.EmailNotFoundException;
+import com.api.chezz.exceptions.WrongCodeException;
 import com.api.chezz.models.CodeValidation;
 import com.api.chezz.models.Player;
 import com.api.chezz.repositories.CodeRepository;
@@ -43,15 +44,15 @@ public class CodeService {
 
     }
 
-    public boolean validateCode(String email, String _code){
+    public void validateCode(String email, String _code){
 
         var player = playerRepository.findByEmail(email).orElseThrow(EmailNotFoundException::new);
 
         var code = codeRepository.findByPlayer(player);
 
-        if(code.isEmpty()) return false;
+        if(code.isEmpty()) throw new WrongCodeException();
 
-        return code.get().getRandomCode().equals(_code);
+        if(!code.get().getRandomCode().equals(_code)) throw new WrongCodeException();
 
     }
 

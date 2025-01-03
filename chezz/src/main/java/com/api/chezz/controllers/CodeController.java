@@ -23,8 +23,9 @@ public class CodeController {
     }
 
     @GetMapping("validate/{email}/{code}")
-    public ResponseEntity<Boolean> validateCode(@PathVariable(value = "email") String email, @PathVariable(value = "code") String code){
-        return ResponseEntity.status(HttpStatus.OK).body(codeService.validateCode(email, code));
+    public ResponseEntity<Void> validateCode(@PathVariable(value = "email") String email, @PathVariable(value = "code") String code){
+        codeService.validateCode(email, code);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }
